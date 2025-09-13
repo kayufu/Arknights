@@ -164,15 +164,17 @@ NoMoveMouseUp() {
 
 MouseMoveF()
 {
+global X,Y
 MouseGetPos(&x_curr, &y_curr)
-DllCall("SetCursorPos", "int", x_curr + 3, "int", y_curr - 6)
+DllCall("SetCursorPos", "int", X := x_curr + 3, "int", Y := y_curr - 6)
 }
 
 MouseMoveF_2()
 {
-MouseGetPos(&x_curr, &y_curr)
-DllCall("SetCursorPos", "int", x_curr - 3, "int", y_curr + 6)
+DllCall("SetCursorPos", "int", X - 3, "int", Y + 6)
 }
+
+
 ;---
 
 
@@ -216,17 +218,19 @@ F:: {
     ; Click at the specified coordinates using the custom function.
     NoMoveMouse(1801, 84)
 	; Pause the script for 30 milliseconds.
-    Sleep 30
+    ;Sleep 30
     ; Press and hold the left mouse button down.
     SendInput("{LButton down}")
     ; Pause the script for 80 milliseconds.
 	MouseMoveF()
+	;Test1()
     ; Send the Escape keypress.
 	Sleep 30
     SendInput "{Esc}"
 	Sleep 30
 	MouseMoveF_2()
-	Sleep 10
+	;Test2()
+	;Sleep 10
 	
     ; Wait for the "F" key to be released before proceeding.
     KeyWait "F"
@@ -305,7 +309,7 @@ A:: {
     ; Click at the specified coordinates using the custom function.
     NoMoveMouse(1801, 84)
 	; Pause the script for 30 milliseconds.
-    ;Sleep 30
+    Sleep 30
     ; Perform a standard left mouse click.
     SendInput("{LButton}")
     ; Pause the script for 150 milliseconds.
@@ -325,7 +329,7 @@ D:: {
     ; Click at the specified coordinates using the custom function.
     NoMoveMouse(1801, 84)
 	; Pause the script for 30 milliseconds.
-    ;Sleep 30
+    Sleep 30
     ; Perform a standard left mouse click.
     SendInput("{LButton}")
     ; Pause the script for 150 milliseconds.
