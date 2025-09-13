@@ -317,7 +317,7 @@ A:: {
     ; Send the Escape keypress.
     NoMoveMouse(1801, 84)
 	; Pause the script for 20 milliseconds.
-    Sleep 100
+    Sleep 120
     ; Click at the specified coordinates using the custom function.
     NoMoveMouse(914.88, 330.372)
 	sleep 30
@@ -337,7 +337,7 @@ D:: {
     ; Send the Escape keypress.
     NoMoveMouse(1801, 84)
 	; Pause the script for 20 milliseconds.
-    Sleep 120
+    Sleep 100
     ; Click at the specified coordinates using the custom function.
     NoMoveMouse(1239.552, 607.932)
 	sleep 30
