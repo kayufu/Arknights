@@ -1,4 +1,4 @@
-﻿#Requires AutoHotkey v2.0
+#Requires AutoHotkey v2.0
 ; =========================================================================
 ; Akrnight MuMu Macro to AutoHotkey v2 Conversion
 ; AutoHotkey v2.0+
@@ -167,6 +167,12 @@ MouseMoveF()
 MouseGetPos(&x_curr, &y_curr)
 DllCall("SetCursorPos", "int", x_curr + 3, "int", y_curr - 6)
 }
+
+MouseMoveF_2()
+{
+MouseGetPos(&x_curr, &y_curr)
+DllCall("SetCursorPos", "int", x_curr - 3, "int", y_curr + 6)
+}
 ;---
 
 
@@ -199,6 +205,7 @@ RButton:: {
     Sleep(30)
     
 	NoMoveMouse(1801, 84)
+	Sleep 30
 }
  
 ; "F" Key Macro
@@ -217,7 +224,10 @@ F:: {
     ; Send the Escape keypress.
 	Sleep 30
     SendInput "{Esc}"
-
+	Sleep 30
+	MouseMoveF_2()
+	Sleep 10
+	
     ; Wait for the "F" key to be released before proceeding.
     KeyWait "F"
 }
@@ -242,6 +252,7 @@ Q:: {
     ; Use the custom ClickRel function to click at the specified coordinates.
     NoMoveMouse(914.88, 330.372)
     ; Wait for the "Q" key to be released.
+	Sleep 30
     KeyWait("Q")
 }
 
@@ -254,6 +265,7 @@ E:: {
     NoMoveMouse(1239.552, 607.932) 
 	;ClickRel(1277, 585)
     ; Wait for the "E" key to be released.
+	Sleep 30
     KeyWait("E")
 }
 
@@ -304,6 +316,7 @@ A:: {
     Sleep 100
     ; Click at the specified coordinates using the custom function.
     NoMoveMouse(914.88, 330.372)
+	sleep 30
 	KeyWait "A"
 }
 ; "D" Key Macro
@@ -323,6 +336,7 @@ D:: {
     Sleep 120
     ; Click at the specified coordinates using the custom function.
     NoMoveMouse(1239.552, 607.932)
+	sleep 30
 	KeyWait "D"
 }
 R::
