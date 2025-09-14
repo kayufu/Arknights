@@ -223,13 +223,11 @@ F:: {
     SendInput("{LButton down}")
     ; Pause the script for 80 milliseconds.
 	MouseMoveF()
-	;Test1()
     ; Send the Escape keypress.
 	Sleep 30
     SendInput "{Esc}"
 	Sleep 30
 	MouseMoveF_2()
-	;Test2()
 	;Sleep 10
 	
     ; Wait for the "F" key to be released before proceeding.
@@ -287,29 +285,31 @@ Space:: {
 ; "S" Key Macro
 ; This hotkey sends a sequence of keypresses and clicks, with delays in between.
 S:: {
+	SendInput "{AllKeysUp}"
     ; Send the "S" key down without triggering other hotkeys.
-    SendInput("{Blind}{S Down}")
+    SendInput("{S Down}")
     ; Pause for 70 milliseconds.
-    Sleep 70
+    Sleep 50
     ; Click at the specified coordinates using the custom function.
 	NoMoveMouse(1801, 84)
     ; Pause for 50 milliseconds.
     Sleep 50
     ; Click at the specified coordinates again.
     NoMoveMouse(1801, 84)
+	Sleep 30
     ; Release the "S" key without triggering other hotkeys.
-    SendInput("{Blind}{S Up}")
-	;sleep 50
+    SendInput("{S Up}")
     ; Wait for the "S" key to be released.
     ;KeyWait "S"
 }
 ; "A" Key Macro
 ; This hotkey performs a series of clicks and sends an Escape keypress.
 A:: {
+	SendInput "{AllKeysUp}"
     ; Click at the specified coordinates using the custom function.
     NoMoveMouse(1801, 84)
 	; Pause the script for 30 milliseconds.
-    Sleep 30
+    ;Sleep 30
     ; Perform a standard left mouse click.
     SendInput("{LButton}")
     ; Pause the script for 150 milliseconds.
@@ -326,10 +326,11 @@ A:: {
 ; "D" Key Macro
 ; This hotkey performs a series of clicks and sends an Escape keypress.
 D:: {
+	SendInput "{AllKeysUp}"
     ; Click at the specified coordinates using the custom function.
     NoMoveMouse(1801, 84)
 	; Pause the script for 30 milliseconds.
-    Sleep 30
+    ;Sleep 30
     ; Perform a standard left mouse click.
     SendInput("{LButton}")
     ; Pause the script for 150 milliseconds.
@@ -337,7 +338,7 @@ D:: {
     ; Send the Escape keypress.
     NoMoveMouse(1801, 84)
 	; Pause the script for 20 milliseconds.
-    Sleep 100
+    Sleep 120
     ; Click at the specified coordinates using the custom function.
     NoMoveMouse(1239.552, 607.932)
 	sleep 30
