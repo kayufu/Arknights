@@ -213,22 +213,16 @@ RButton:: {
 ; "F" Key Macro
 ; This hotkey is designed to simulate a "press and hold" action.
 F:: {
-    ; Release all currently pressed keys.
     SendInput "{AllKeysUp}"
-    ; Click at the specified coordinates using the custom function.
     NoMoveMouse(1801, 84)
-	; Pause the script for 30 milliseconds.
-    ;Sleep 30
-    ; Press and hold the left mouse button down.
     SendInput("{LButton down}")
-    ; Pause the script for 80 milliseconds.
-	MouseMoveF()
-    ; Send the Escape keypress.
 	Sleep 30
+	MouseMoveF()
+	Sleep 10
     SendInput "{Esc}"
 	Sleep 30
 	MouseMoveF_2()
-	;Sleep 10
+	Sleep 10
 	
     ; Wait for the "F" key to be released before proceeding.
     KeyWait "F"
@@ -285,6 +279,7 @@ Space:: {
 ; "S" Key Macro
 ; This hotkey sends a sequence of keypresses and clicks, with delays in between.
 S:: {
+	Sleep 30
 	SendInput "{AllKeysUp}"
     ; Send the "S" key down without triggering other hotkeys.
     SendInput("{S Down}")
@@ -306,54 +301,41 @@ S:: {
 ; This hotkey performs a series of clicks and sends an Escape keypress.
 A:: {
 	SendInput "{AllKeysUp}"
-    ; Click at the specified coordinates using the custom function.
     NoMoveMouse(1801, 84)
-	; Pause the script for 30 milliseconds.
-    ;Sleep 30
-    ; Perform a standard left mouse click.
-    SendInput("{LButton}")
-    ; Pause the script for 150 milliseconds.
     Sleep 30
-    ; Send the Escape keypress.
+    SendInput("{LButton}")
+	Sleep 10
     NoMoveMouse(1801, 84)
-	; Pause the script for 20 milliseconds.
-    Sleep 120
-    ; Click at the specified coordinates using the custom function.
+    Sleep 150
     NoMoveMouse(914.88, 330.372)
-	sleep 30
+	Sleep 30
 	KeyWait "A"
 }
 ; "D" Key Macro
 ; This hotkey performs a series of clicks and sends an Escape keypress.
 D:: {
 	SendInput "{AllKeysUp}"
-    ; Click at the specified coordinates using the custom function.
     NoMoveMouse(1801, 84)
-	; Pause the script for 30 milliseconds.
-    ;Sleep 30
-    ; Perform a standard left mouse click.
+	Sleep 30
     SendInput("{LButton}")
-    ; Pause the script for 150 milliseconds.
-    Sleep 30
-    ; Send the Escape keypress.
+	Sleep 10
     NoMoveMouse(1801, 84)
-	; Pause the script for 20 milliseconds.
-    Sleep 120
-    ; Click at the specified coordinates using the custom function.
+    Sleep 150
     NoMoveMouse(1239.552, 607.932)
-	sleep 30
+	Sleep 30
 	KeyWait "D"
 }
 R::
 {
 NoMoveMouse(1831, 996)
+Sleep 30
 KeyWait "R"
 }
 T::
 {
 NoMoveMouse(1654, 86)
+Sleep 30
 KeyWait "T"
 }
 ; This directive resets the hotkey context, making all subsequent hotkeys active globally.
 #HotIf
-
