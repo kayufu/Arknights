@@ -72,37 +72,20 @@ ClickRel(x, y) {
 }
 ; This will set mouse click speed to 0
 SetDefaultMouseSpeed 0
-
+SetMouseDelay -1
+SendMode("Input")
+SetWorkingDir(A_ScriptDir)
+CoordMode("Mouse", "Window")
 ;---
 
 ; Click at absolute screen coordinates without moving the visible mouse
 NoMoveMouse(x, y) {
-    ; Save the original mouse position
+	BlockInput "MouseMove"
     MouseGetPos &origX, &origY
-
-    ; Set cursor to target position temporarily
-    DllCall("SetCursorPos", "int", x, "int", y)
-
-    ; Simulate left mouse button down
-    DllCall("mouse_event"
-        , "UInt", 0x0002   ; MOUSEEVENTF_LEFTDOWN
-        , "UInt", 0        ; dx (ignored in absolute mode)
-        , "UInt", 0        ; dy
-        , "UInt", 0        ; dwData
-        , "UInt", 0        ; dwExtraInfo
-    )
-
-    ; Simulate left mouse button up
-    DllCall("mouse_event"
-        , "UInt", 0x0004   ; MOUSEEVENTF_LEFTUP
-        , "UInt", 0
-        , "UInt", 0
-        , "UInt", 0
-        , "UInt", 0
-    )
-
-    ; Restore the original cursor position
+    MouseMove x, y, 0
+	SendInput "{LButton}"
     MouseMove origX, origY, 0
+	BlockInput "MouseMoveOff"
 }
 
 ClickNoMove(x, y, windowTitle := "") {
@@ -165,13 +148,19 @@ NoMoveMouseUp() {
 MouseMoveF()
 {
 global X,Y
+BlockInput "MouseMove"
 MouseGetPos(&x_curr, &y_curr)
-DllCall("SetCursorPos", "int", X := x_curr + 3, "int", Y := y_curr - 6)
+;DllCall("SetCursorPos", "int", X := x_curr + 3, "int", Y := y_curr - 6)
+MouseMove X := x_curr + 3, Y := y_curr - 6, 0
+BlockInput "MouseMoveOff"
 }
 
 MouseMoveF_2()
 {
-DllCall("SetCursorPos", "int", X - 3, "int", Y + 6)
+BlockInput "MouseMove"
+;DllCall("SetCursorPos", "int", X - 3, "int", Y + 6)
+MouseMove X - 3, Y + 6, 0
+BlockInput "MouseMoveOff"
 }
 
 
@@ -212,31 +201,33 @@ RButton:: {
  
 ; "F" Key Macro
 ; This hotkey is designed to simulate a "press and hold" action.
+#SuspendExempt
 F:: {
-    SendInput "{AllKeysUp}"
+	Suspend "1"
     NoMoveMouse(1801, 84)
     SendInput("{LButton down}")
-	Sleep 30
+	Sleep 10
 	MouseMoveF()
 	Sleep 10
     SendInput "{Esc}"
-	Sleep 30
+	Sleep 40
 	MouseMoveF_2()
 	Sleep 10
-	
-    ; Wait for the "F" key to be released before proceeding.
-    KeyWait "F"
+    KeyWait("F")
+	Sleep 200
 }
 ; This separate hotkey handles the action when the "F" key is released.
-F Up:: SendInput("{LButton up}")
-
+F Up:: 
+{
+SendInput("{LButton up}")
+Suspend "0"
+}
+#SuspendExempt False
 ; "W" Key Macro
 ; This hotkey simply sends an Escape keypress.
 W::
-{
-    ; Send the Escape keypress.
+{	
     SendInput "{Esc}"
-    ; Wait for the "W" key to be released before proceeding.
     KeyWait "W"
 }
 
@@ -244,7 +235,7 @@ W::
 ; This hotkey waits for a moment and then performs a click.
 Q:: {
     ; Pause the script for 70 milliseconds.
-    Sleep(70)
+    Sleep(100)
     ; Use the custom ClickRel function to click at the specified coordinates.
     NoMoveMouse(914.88, 330.372)
     ; Wait for the "Q" key to be released.
@@ -256,7 +247,7 @@ Q:: {
 ; This hotkey is similar to the Q macro, with a slightly longer delay.
 E:: {
     ; Pause the script for 100 milliseconds.
-    Sleep(120)
+    Sleep(100)
     ; Use the custom ClickRel function to click at the specified coordinates.
     NoMoveMouse(1239.552, 607.932) 
 	;ClickRel(1277, 585)
@@ -295,35 +286,33 @@ S:: {
     ; Release the "S" key without triggering other hotkeys.
     SendInput("{S Up}")
     ; Wait for the "S" key to be released.
-    ;KeyWait "S"
+    KeyWait "S", "D T0.1"
 }
 ; "A" Key Macro
 ; This hotkey performs a series of clicks and sends an Escape keypress.
 A:: {
-	SendInput "{AllKeysUp}"
     NoMoveMouse(1801, 84)
     Sleep 30
     SendInput("{LButton}")
 	Sleep 10
     NoMoveMouse(1801, 84)
-    Sleep 150
+    Sleep 160
     NoMoveMouse(914.88, 330.372)
-	Sleep 30
 	KeyWait "A"
+	Sleep 150
 }
 ; "D" Key Macro
 ; This hotkey performs a series of clicks and sends an Escape keypress.
 D:: {
-	SendInput "{AllKeysUp}"
     NoMoveMouse(1801, 84)
 	Sleep 30
     SendInput("{LButton}")
 	Sleep 10
     NoMoveMouse(1801, 84)
-    Sleep 150
+    Sleep 160
     NoMoveMouse(1239.552, 607.932)
-	Sleep 30
 	KeyWait "D"
+	Sleep 150
 }
 R::
 {
