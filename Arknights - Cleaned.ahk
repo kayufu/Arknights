@@ -31,7 +31,7 @@ F2::Suspend
 ; --- F1 Hotkey to reload script ---
 ; This hotkey reloads the script, applying any changes made to the file.
 F1::Reload()
-
+F4::ExitApp
 ; =========================================================================
 ; --- Converted Macros ---
 ; All coordinates are estimated based on a 1920x1080 resolution.
@@ -72,7 +72,7 @@ ClickRel(x, y) {
 }
 ; This will set mouse click speed to 0
 SetDefaultMouseSpeed 0
-SetMouseDelay -1
+;SetMouseDelay -1
 SendMode("Input")
 SetWorkingDir(A_ScriptDir)
 CoordMode("Mouse", "Window")
@@ -204,31 +204,36 @@ RButton:: {
 #SuspendExempt
 F:: {
 	Suspend "1"
+	SendInput "{AllKeysUp}"
+	Sleep 10
     NoMoveMouse(1801, 84)
+	Sleep 10
+	BlockInput "MouseMove"
     SendInput("{LButton down}")
+	BlockInput "MouseMoveOff"
 	Sleep 10
 	MouseMoveF()
-	Sleep 10
-    SendInput "{Esc}"
-	Sleep 40
+	SendInput "{Esc}"
 	MouseMoveF_2()
-	Sleep 10
-    KeyWait("F")
-	Sleep 200
+	BlockInput "Off"
+	KeyWait "F"
+	Suspend "0"
+	
 }
 ; This separate hotkey handles the action when the "F" key is released.
 F Up:: 
 {
 SendInput("{LButton up}")
-Suspend "0"
 }
 #SuspendExempt False
 ; "W" Key Macro
 ; This hotkey simply sends an Escape keypress.
 W::
 {	
-    SendInput "{Esc}"
+    ; SendInput "{Esc}"
+	NoMoveMouse(1801, 84)
     KeyWait "W"
+	Sleep 30
 }
 
 ; "Q" Key Macro
@@ -286,33 +291,37 @@ S:: {
     ; Release the "S" key without triggering other hotkeys.
     SendInput("{S Up}")
     ; Wait for the "S" key to be released.
-    KeyWait "S", "D T0.1"
+    ;KeyWait "S", "D T0.1"
 }
 ; "A" Key Macro
 ; This hotkey performs a series of clicks and sends an Escape keypress.
 A:: {
     NoMoveMouse(1801, 84)
     Sleep 30
+	BlockInput "MouseMove"
     SendInput("{LButton}")
+	BlockInput "MouseMove"
 	Sleep 10
     NoMoveMouse(1801, 84)
     Sleep 160
     NoMoveMouse(914.88, 330.372)
 	KeyWait "A"
-	Sleep 150
+	Sleep 30
 }
 ; "D" Key Macro
 ; This hotkey performs a series of clicks and sends an Escape keypress.
 D:: {
     NoMoveMouse(1801, 84)
 	Sleep 30
+	BlockInput "MouseMove"
     SendInput("{LButton}")
+	BlockInput "MouseMove"
 	Sleep 10
     NoMoveMouse(1801, 84)
     Sleep 160
     NoMoveMouse(1239.552, 607.932)
 	KeyWait "D"
-	Sleep 150
+	Sleep 30
 }
 R::
 {
