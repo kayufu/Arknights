@@ -72,7 +72,7 @@ ClickRel(x, y) {
 }
 ; This will set mouse click speed to 0
 SetDefaultMouseSpeed 0
-;SetMouseDelay -1
+SetMouseDelay -1
 SendMode("Input")
 SetWorkingDir(A_ScriptDir)
 CoordMode("Mouse", "Window")
@@ -147,19 +147,17 @@ NoMoveMouseUp() {
 
 MouseMoveF()
 {
-global X,Y
 BlockInput "MouseMove"
+global X,Y
 MouseGetPos(&x_curr, &y_curr)
-;DllCall("SetCursorPos", "int", X := x_curr + 3, "int", Y := y_curr - 6)
-MouseMove X := x_curr + 3, Y := y_curr - 6, 0
+MouseMove X := x_curr + 3, Y := y_curr - 5, 0
 BlockInput "MouseMoveOff"
 }
 
 MouseMoveF_2()
 {
 BlockInput "MouseMove"
-;DllCall("SetCursorPos", "int", X - 3, "int", Y + 6)
-MouseMove X - 3, Y + 6, 0
+MouseMove X - 3, Y + 5, 0
 BlockInput "MouseMoveOff"
 }
 
@@ -186,15 +184,8 @@ BlockInput "MouseMoveOff"
 ; This hotkey performs a series of clicks and pauses.
 RButton:: {
 	NoMoveMouse(1801, 84)
-    
-    ; Get the current mouse position.
-    ;MouseGetPos(&x_curr, &y_curr)
-    ; Click at the current mouse position.
     SendInput("{LButton}")
-    
-    ; Pause the script for 30 milliseconds.
     Sleep(30)
-    
 	NoMoveMouse(1801, 84)
 	Sleep 30
 }
@@ -202,38 +193,29 @@ RButton:: {
 ; "F" Key Macro
 ; This hotkey is designed to simulate a "press and hold" action.
 #SuspendExempt
-F:: {
-	Suspend "1"
-	SendInput "{AllKeysUp}"
-	Sleep 10
-    NoMoveMouse(1801, 84)
-	Sleep 10
-	BlockInput "MouseMove"
-    SendInput("{LButton down}")
-	BlockInput "MouseMoveOff"
-	Sleep 10
-	MouseMoveF()
-	SendInput "{Esc}"
-	MouseMoveF_2()
-	BlockInput "Off"
-	KeyWait "F"
-	Suspend "0"
-	
-}
-; This separate hotkey handles the action when the "F" key is released.
-F Up:: 
+F::
 {
-SendInput("{LButton up}")
+    Suspend(1)
+    NoMoveMouse(1801, 84)
+    SendInput('{LButton down}')
+    Sleep(30)
+    MouseMoveF()
+    SendInput('{Escape down}')
+	SendInput('{Escape up}')
+    MouseMoveF_2()
+	Sleep(30)
+    KeyWait('F')
+    SendInput('{LButton up}')
+    Suspend(0)
 }
 #SuspendExempt False
 ; "W" Key Macro
 ; This hotkey simply sends an Escape keypress.
 W::
 {	
-    ; SendInput "{Esc}"
 	NoMoveMouse(1801, 84)
-    KeyWait "W"
 	Sleep 30
+    KeyWait "W"
 }
 
 ; "Q" Key Macro
@@ -244,8 +226,8 @@ Q:: {
     ; Use the custom ClickRel function to click at the specified coordinates.
     NoMoveMouse(914.88, 330.372)
     ; Wait for the "Q" key to be released.
-	Sleep 30
     KeyWait("Q")
+	Sleep 30
 }
 
 ; "E" Key Macro
@@ -257,8 +239,8 @@ E:: {
     NoMoveMouse(1239.552, 607.932) 
 	;ClickRel(1277, 585)
     ; Wait for the "E" key to be released.
-	Sleep 30
     KeyWait("E")
+	Sleep 30
 }
 
 ; "Space" Key Macro
@@ -297,31 +279,25 @@ S:: {
 ; This hotkey performs a series of clicks and sends an Escape keypress.
 A:: {
     NoMoveMouse(1801, 84)
-    Sleep 30
-	BlockInput "MouseMove"
     SendInput("{LButton}")
-	BlockInput "MouseMove"
-	Sleep 10
+	Sleep 30
     NoMoveMouse(1801, 84)
     Sleep 160
     NoMoveMouse(914.88, 330.372)
-	KeyWait "A"
 	Sleep 30
+	KeyWait "A"
 }
 ; "D" Key Macro
 ; This hotkey performs a series of clicks and sends an Escape keypress.
 D:: {
     NoMoveMouse(1801, 84)
-	Sleep 30
-	BlockInput "MouseMove"
     SendInput("{LButton}")
-	BlockInput "MouseMove"
-	Sleep 10
+	Sleep 30
     NoMoveMouse(1801, 84)
     Sleep 160
     NoMoveMouse(1239.552, 607.932)
-	KeyWait "D"
 	Sleep 30
+	KeyWait "D"
 }
 R::
 {
